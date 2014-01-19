@@ -1,6 +1,6 @@
 /*
-    题意：划分树
-    思路：划分树
+    锟斤拷锟解：锟斤拷锟斤拷锟斤拷
+    思路锟斤拷锟斤拷锟斤拷锟斤拷
 */
 #include<stdio.h>
 #include<string.h>
@@ -9,7 +9,7 @@ using namespace std;
 #define INF 0x3fffffff
 #define N 100010
 int sa[N],tree[20][N],sum[20][N];
-//sum[i][j]表示i层，1～j里比sa[m]小的数
+//sum[i][j]锟斤拷示i锟姐，1锟斤拷j锟斤拷锟斤拷sa[m]小锟斤拷锟斤拷
 int n,m,t,x,y,k;
 struct node
 {
@@ -70,7 +70,7 @@ inline int query(int t,int d,int x,int y,int k)
     if(x==y) return tree[d][x];
     int ss,s;
     int l=root[t].l,r=root[t].r,m=(l+r)>>1;
-    //ss：[l,x)之间被分到左子树的，s：[x,y]被分到左子树的
+    //ss锟斤拷[l,x)之锟戒被锟街碉拷锟斤拷锟斤拷锟斤拷锟侥ｏ拷s锟斤拷[x,y]锟斤拷锟街碉拷锟斤拷锟斤拷锟斤拷锟斤拷
     if(l==x)
     {
         ss=0;
@@ -83,14 +83,14 @@ inline int query(int t,int d,int x,int y,int k)
     }
     if(s>=k)
     {
-        int xx=l+ss;//既然[x,y]的就够了，[l,x-1]就不用了里的ss个就没用了。
-        int yy=l+ss+s-1;//将下一次的s减1
+        int xx=l+ss;//锟斤拷然[x,y]锟侥就癸拷锟剿ｏ拷[l,x-1]锟酵诧拷锟斤拷锟斤拷锟斤拷锟斤拷ss锟斤拷锟斤拷没锟斤拷锟剿★拷
+        int yy=l+ss+s-1;//锟斤拷锟斤拷一锟轿碉拷s锟斤拷1
         return query(t*2,d+1,xx,yy,k);
     }
     else
     {
-        int r1=x-l-ss;//[l,x-1]之间被分到右子树
-        int r2=y-x+1-s;//[x,y]之间被分到右子树
+        int r1=x-l-ss;//[l,x-1]之锟戒被锟街碉拷锟斤拷锟斤拷锟斤拷
+        int r2=y-x+1-s;//[x,y]之锟戒被锟街碉拷锟斤拷锟斤拷锟斤拷
         int xx=m+1 +r1;
         int yy=m+1 +r1+r2-1;
         return query(t*2+1,d+1,xx,yy,k-s);
@@ -118,7 +118,7 @@ int main()
             y=input();
             k=input();
             int left=1,right=y-x+1,mid,ans=-INF;
-			while(left<=right){
+	    while(left<=right){
                 mid=(left+right)>>1;
                 int tmp=query(1,0,x,y,mid);
                 if(tmp<=k){
@@ -129,8 +129,8 @@ int main()
                     right=mid-1;
                 }
 			}
-			if(ans>k) printf("%d\n",ans);
-			else printf("not exist\n");
+	   if(ans>k) printf("%d\n",ans);
+	   else printf("not exist\n");
         }
     }
     return 0;
