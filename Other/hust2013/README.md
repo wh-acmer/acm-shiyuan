@@ -20,6 +20,7 @@ D.After Dating With Girl
 E.LowerBound
 题意：划分树
 思路：划分树
+code
 
 F.Goddess
 题意：n*m的棋盘，至少从中取出多少棋子，剩下的不会形成五个（横着竖着斜着）连续的
