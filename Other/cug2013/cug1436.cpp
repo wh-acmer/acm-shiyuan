@@ -1,5 +1,5 @@
 /*
-    by Ð¡½¨½¨
+    by zhuhuangjian
 */
 #include <stdio.h>
 #include <string.h>
