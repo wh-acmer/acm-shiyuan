@@ -1,0 +1,15 @@
+A.ZCC Loves COT  差分法
+B.ZCC Loves Intersection  数学
+C.ZCC Loves RPG  词法分析器+线段树
+D.ZCC loves Army  Splay树
+E.ZCC loves cards  暴力+状态枚举
+F.ZCC loves Minecraft  正交凸包
+G.ZCC loves words  AC自动机+dp
+H.ZCC loves march  模拟+并查集
+I.ZCC loves ranklist  循环赛构造算法
+J.ZCC loves traffic lights  图论
+K.ZCC Loves Codefires  贪心
+
+
+AC: BEHIK
+
