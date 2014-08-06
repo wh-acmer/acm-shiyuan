@@ -1,0 +1,12 @@
+A.Inversion  逆序数
+B.Paths on the tree 树形dp+贪心
+C.Least common multiple  线段树
+D.Linear recursive sequence  FFT
+E.Parenthese sequence  预处理
+F.Count on the path  图论
+G.Permutation  拓扑排序+状态dp
+H.Query on the subtree 	点分治+树状数组
+I.Exclusive or  数学
+J.Matrix multiplication  bitset+matrix
+
+AC：AEIJ
