@@ -1,5 +1,5 @@
 A.Map  DP?
-B.Hello, Your Package!  DP+Graph
+B.Hello, Your Package!  DP+图论
 C.Room and Moor  贪心
 D.Football Manager  DP+KM
 E.Apple Tree  水题
