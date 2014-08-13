@@ -1,0 +1,14 @@
+A.Prime Tree  数学+dp  
+B.Rainbow Island  状态dp+高斯消元 
+C.Lucky Number  数学  
+D.Seeing People  ? 
+E.Stupid Tower Defense  DP  
+F.Destroy Transportation system  网络流  
+G.Magical Forest  stl乱搞  
+H.Game on S♂play  树的旋转+线段树  
+I.K-th good string  后缀自动机  
+J.FSF’s game  数学 
+
+ 
+AC: CEGJ
+
