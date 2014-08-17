@@ -1,0 +1,13 @@
+A.2048  dp
+B.Area of Mushroom  凸包
+C.GCD Array  树状数组+数学
+D.Kingdom  图论
+E.Light 轮廓线dp
+F.Monster  签到题
+G.Multiplication table  找规律
+H.Number Transformation  数学
+I.Periodic Binary String  数学
+J.Permanent  FFT
+K.Tree  二分图
+
+AC: ABFGH
