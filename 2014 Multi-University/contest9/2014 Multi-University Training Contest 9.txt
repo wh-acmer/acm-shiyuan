@@ -1,0 +1,14 @@
+A.Another OCD Patient  DP
+B.Boring Sum   预处理
+C.Closed Paths   计算几何
+D.Dividing a String   ?
+E.Emmet   模拟
+F.Fast Matrix Calculation   矩阵
+G.GGS-DDU   最小树形图
+H.Handling the Past   线段树+离散化
+I.Improving the GPA   枚举
+J.Just a Joke   微积分
+K.Killing Monsters   预处理or树状数组
+
+
+AC：ABFIK

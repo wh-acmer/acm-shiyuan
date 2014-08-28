@@ -1,0 +1,14 @@
+A.A simple brute force problem.   网络流
+B.A simple dynamic programming problem
+C.A simple simulation problem.    线段树
+D.A simple water problem     签到题
+E.A simple Gaussian elimination problem.   网络流
+F.A simple greedy problem.  贪心预处理+DP
+G.A simple problem from ZOJ.   计算几何
+H.A simple probability problem.  计算几何
+I.A simple math problem.   DLX
+J.A simple graph problem.   树形dp
+
+
+AC：CDE
+
