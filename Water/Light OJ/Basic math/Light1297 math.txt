@@ -1,0 +1,22 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        double w,l;
+        scanf("%lf%lf",&w,&l);
+        double x=w*w+l*l-w*l;
+        x=sqrt(x);
+        double y=w+l;
+        double ans=(y-x)/6.0;
+        ans=(w-2*ans)*(l-2*ans)*ans;
+        printf("Case %d: %lf\n",i,ans);
+    }
+    return 0;
+}

@@ -1,0 +1,39 @@
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+struct stu
+{
+    char name[25];
+    int sum;
+};
+bool cmp(stu x,stu y)
+{
+    return x.sum<y.sum;
+}
+stu s[101];
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int ii=1;ii<=t;ii++)
+    {
+        int n;
+        scanf("%d",&n);
+        for(int i=1;i<=n;i++)
+        {
+            int x,y,z;
+            scanf("%s%d%d%d",s[i].name,&x,&y,&z);
+            s[i].sum=x*y*z;
+        }
+        printf("Case %d: ",ii);
+        sort(s+1,s+n+1,cmp);
+        if(s[1].sum==s[n].sum)
+            printf("no thief\n");
+        else
+        {
+            printf("%s took chocolate from %s\n",s[n].name,s[1].name);
+        }
+    }
+    return 0;
+}

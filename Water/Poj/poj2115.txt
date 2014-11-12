@@ -1,0 +1,54 @@
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+long long gcd(long long a,long long b)
+{
+    return !b?a:gcd(b,a%b);
+}
+long long exgcd(long long a,long long b,long long &x,long long &y)
+{
+    if(b==0)
+    {
+        x=1;
+        y=0;
+        return a;
+    }
+    else
+    {
+        long long ans=exgcd(b,a%b,x,y);
+        long long tmp=x;
+        x=y;
+        y=tmp-a/b*x;
+        return ans;
+    }
+}
+int main()
+{
+    int A,B,C,M;
+    while(scanf("%d%d%d%d",&A,&B,&C,&M)==4,A||B||C||M)
+    {
+        long long a=C;
+        long long b=1;
+        b<<=M;
+        long long c=B-A;
+        long long r=gcd(a,b);
+        if(c%r!=0)
+        {
+            printf("FOREVER\n");
+        }
+        else
+        {
+            long long x,y;
+            a/=r;
+            b/=r;
+            c/=r;
+            exgcd(a,b,x,y);
+            x*=c;
+            x=(x%b+b)%b;
+            printf("%lld\n",x);
+        }
+    }
+    return 0;
+}

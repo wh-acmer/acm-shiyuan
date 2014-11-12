@@ -1,0 +1,53 @@
+#include <cstdio>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <stack>
+using namespace std;
+int main()
+{
+    int n,k;
+    while(scanf("%d%d",&n,&k)!=EOF)
+    {
+        if(n==-1&&k==-1)
+            break;
+        vector<long long>a(n+1);
+        for(int i=0;i<=n;i++)
+            scanf("%lld",&a[i]);
+        reverse(a.begin(),a.end());
+        int cnt=0;
+        while(cnt<a.size()&&a[cnt]==0)
+            cnt++,n--;
+        while(n>=k)
+        {
+            a[cnt+k]-=a[cnt];
+            cnt++,n--;
+        }
+        while(cnt<a.size()&&a[cnt]==0)
+            cnt++,n--;
+        stack<long long>s;
+        while(cnt<a.size())
+            s.push(a[cnt++]);
+        bool tag=true;
+        while(!s.empty())
+        {
+            if(tag)
+            {
+                printf("%lld",s.top());
+                s.pop();
+                tag=false;
+            }
+            else
+            {
+                printf(" ");
+                printf("%lld",s.top());
+                s.pop();
+            }
+        }
+        if(tag)
+            printf("0");
+        printf("\n");
+    }
+    return 0;
+}

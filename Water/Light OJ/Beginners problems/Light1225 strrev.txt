@@ -1,0 +1,26 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+char s[20];
+char str[20];
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        scanf("%s",s);
+        printf("Case %d: ",i);
+        strcpy(str,s);
+        //strrev(str);  我去，用这个PE了
+        for(int i=0;i<strlen(str)/2;i++)
+            swap(str[i],str[strlen(str)-1-i]);
+        if(strcmp(s,str)==0)
+            printf("Yes\n");
+        else
+            printf("No\n");
+    }
+    return 0;
+}

@@ -1,0 +1,33 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+#define maxn ((1<<24)+1)
+bool prime[maxn];
+void Prime()
+{
+    memset(prime,true,sizeof(prime));
+    prime[0]=prime[1]=0;
+    for(int i=2;i*i<maxn;i++)
+        if(prime[i])
+            for(int j=2*i;j<maxn;j+=i)
+                prime[j]=0;
+}
+int main()
+{
+    Prime();
+    long long n;
+    while(cin>>n)
+    {
+        int ans=0;
+        for(int i=3;i<=n/2;i++)
+            if(prime[i]&&prime[n-i])
+                ans++;
+        if(prime[n-2]&&n-2>=2)
+                ans++;
+        cout<<ans<<endl;
+    }
+    return 0;
+}

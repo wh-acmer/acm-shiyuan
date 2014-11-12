@@ -1,0 +1,38 @@
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        int n,c;
+        scanf("%d%d",&n,&c);
+        printf("Case %d: ",i);
+        // t*c-n*t^2
+        // n=0  t=1;
+        // -n*(t^2-(c/n)*t+...)+...
+        if(n==0)
+            printf("0\n");
+        else
+        {
+            int a=c/(2*n);
+            if(a*2*n<=c)
+            {
+                int b=a+1;
+                if(b*c-n*b*b>a*c-n*a*a)
+                    a=b;
+            }
+            else
+            {
+                int b=a-1;
+                if(b*c-n*b*b>a*c-n*a*a)
+                    a=b;
+            }
+            printf("%d\n",a);
+        }
+    }
+    return 0;
+}

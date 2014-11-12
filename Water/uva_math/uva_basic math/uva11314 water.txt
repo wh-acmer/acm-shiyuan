@@ -1,0 +1,26 @@
+// water
+#include <cstdio>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <iostream>
+using namespace std;
+struct point
+{
+    double x,y;
+};
+point a,b;
+int main()
+{
+    int t;
+    double ans;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%lf%lf%lf%lf",&a.x,&a.y,&b.x,&b.y);
+        ans=sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+        ans+=sqrt((a.x+b.x)*(a.x+b.x)+(a.y+b.y)*(a.y+b.y));
+        printf("%.3lf\n",ans);
+    }
+    return 0;
+}

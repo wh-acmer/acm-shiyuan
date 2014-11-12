@@ -1,0 +1,70 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <cmath>
+using namespace std;
+struct Matrix
+{
+    int m[101][101];
+}E;
+void init()
+{
+    for(int i=1;i<101;i++)
+        for(int j=1;j<101;j++)
+            E.m[i][j]=(i==j);
+}
+Matrix Multi(Matrix A,Matrix B,int M,int N,int K)
+{
+    Matrix ans;
+    for(int i=1;i<=M;i++)
+        for(int j=1;j<=K;j++)
+        {
+            ans.m[i][j]=0;
+            for(int k=1;k<=N;k++)
+                ans.m[i][j]=(ans.m[i][j]+A.m[i][k]*B.m[k][j])%2;
+        }
+    return ans;
+}
+Matrix Pow(Matrix A,int k,int n)
+{
+    Matrix ans=E;
+    while(k)
+    {
+        if(k&1)
+        {
+            k--;
+            ans=Multi(ans,A,n,n,n);
+        }
+        else
+        {
+            k/=2;
+            A=Multi(A,A,n,n,n);
+        }
+    }
+    return ans;
+}
+int main()
+{
+    int t;
+    init();
+    while(scanf("%d",&t)!=EOF)
+    {
+        char s[101];
+        scanf("%s",s);
+        Matrix D;
+        int l=strlen(s);
+        for(int i=1;i<=l;i++)
+            D.m[1][i]=s[i-1];
+        Matrix ans=E;
+        for(int i=1;i<l;i++)
+            ans.m[i][i+1]=1;
+        ans.m[l][1]=1;
+        ans=Pow(ans,t,l);
+        D=Multi(D,ans,1,l,l);
+        for(int i=1;i<l;i++)
+            printf("%d",D.m[1][i]);
+        printf("%d\n",D.m[1][l]);
+    }
+    return 0;
+}

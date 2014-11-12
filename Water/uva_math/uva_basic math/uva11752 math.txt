@@ -1,0 +1,44 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <cmath>
+#include <set>
+using namespace std;
+set<unsigned long long>s;
+#define maxn 66
+int vis[maxn];
+void pre_solve()
+{
+    memset(vis,1,sizeof(vis));
+    vis[0]=vis[1]=0;
+    for(int i=2;i*i<=maxn;i++)
+        if(vis[i])
+        {
+            for(int j=2*i;j<maxn;j+=i)
+                vis[j]=0;
+        }
+}
+int main()
+{
+    pre_solve();
+    for(int i=2;;i++)
+    {
+        unsigned long long tmp=i;
+        int lim=ceil(64*log(2.0)/log(i*1.0));
+        if(lim<=3)
+            break;
+        unsigned long long tag=i;
+        for(int j=2;j<lim;j++)
+        {
+            tag*=tmp;
+            if(vis[j]==0)
+                s.insert(tag);
+        }
+    }
+    printf("1\n");
+    set<unsigned long long>::iterator it=s.begin();
+    for(;it!=s.end();it++)
+        printf("%llu\n",*it);
+    return 0;
+}

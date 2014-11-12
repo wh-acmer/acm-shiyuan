@@ -1,0 +1,79 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+#define maxn 0x7fffffff
+long long tabs(long long x)
+{
+    if(x>0)
+        return x;
+    return -x;
+}
+long long gcd(long long a,long long b)
+{
+    return !b?a:gcd(b,a%b);
+}
+long long exgcd(long long a,long long b,long long &x,long long &y)
+{
+    if(b==0)
+    {
+        x=1;
+        y=0;
+        return a;
+    }
+    else
+    {
+        long long ans=exgcd(b,a%b,x,y);
+        long long tmp=x;
+        x=y;
+        y=tmp-a/b*y;
+        return ans;
+    }
+}
+int main()
+{
+    long long a,b,c;
+    while(scanf("%lld%lld%lld",&a,&b,&c)!=EOF,a||b||c)
+    {
+        bool tag=0;
+        if(a<b)// 这样是为了保证系数为一正一负而不是一负一正
+        {
+            swap(a,b);
+            tag=1;
+        }
+        long long x0,y0;
+        long long r=gcd(a,b);
+        a/=r;
+        b/=r;
+        c/=r;
+        exgcd(a,b,x0,y0);
+        x0*=c;
+        y0*=c;
+        long long Min=maxn,ans;
+        long long total=maxn;
+        long long miao=y0/a;//这儿...之前死在这里了
+        for(long long ii=miao-r;ii<=miao+r;ii++)//总赶脚这个范围不对
+        {
+            if(tabs(x0+b*ii)+tabs(y0-a*ii)<Min)
+            {
+                Min=tabs(x0+b*ii)+tabs(y0-a*ii);
+                ans=ii;
+                total=a*r*tabs(x0+b*ii)+b*r*tabs(y0-a*ii);
+            }
+            else if(tabs(x0+b*ii)+tabs(y0-a*ii)==Min)
+            {
+                if(a*r*tabs(x0+b*ii)+b*r*c*tabs(y0-a*ii)<total)
+                {
+                    total=a*r*tabs(x0+b*ii)+b*r*c*tabs(y0-a*ii);
+                    ans=ii;
+                }
+            }
+        }
+        if(!tag)
+            printf("%lld %lld\n",tabs(x0+ans*b),tabs(y0-ans*a));
+        else
+            printf("%lld %lld\n",tabs(y0-ans*a),tabs(x0+ans*b));
+    }
+    return 0;
+}

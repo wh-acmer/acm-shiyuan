@@ -1,0 +1,35 @@
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+int a[40];
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int ii=1;ii<=t;ii++)
+    {
+        int n,p,q;
+        scanf("%d%d%d",&n,&p,&q);
+        for(int i=1;i<=n;i++)
+            scanf("%d",&a[i]);
+        sort(a+1,a+n+1);
+        printf("Case %d: ",ii);
+        int ans=0;
+        int cnt=1;
+        q-=a[cnt];
+        while(q>=0)
+        {
+            ans++;
+            if(cnt==n) //这个地方之前忽略了，WA了
+                break; // 细节问题要重视啊
+            cnt++;
+            q-=a[cnt];
+            if(ans>=p)
+                break;
+        }
+        printf("%d\n",ans);
+    }
+    return 0;
+}

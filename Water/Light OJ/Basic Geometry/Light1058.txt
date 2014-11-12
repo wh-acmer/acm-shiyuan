@@ -1,0 +1,52 @@
+// 求给定点能构成平行四边形的个数
+// 由于平行四边形对角线中点相重，所以我们先把这种点找出来
+// 满足中点的k条线段用C(k,2)得到以某点为中心的平行四边形
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+struct point
+{
+    double x,y;
+};
+point p[1001],mid[1001010];
+bool cmp(point a,point b)
+{
+    if(a.x==b.x)
+        return a.y<b.y;
+    return a.x<b.x;
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int ii=1;ii<=t;ii++)
+    {
+        int n;
+        scanf("%d",&n);
+        int total=0;
+        for(int i=1;i<=n;i++)
+            scanf("%lf%lf",&p[i].x,&p[i].y);
+        for(int i=1;i<n;i++)
+            for(int j=i+1;j<=n;j++)
+            {
+                mid[++total].x=p[i].x+p[j].x;
+                mid[total].y=p[i].y+p[j].y;
+            }
+        sort(mid+1,mid+total+1,cmp);
+        int sum=1;
+        int ans=0;
+        for(int i=1;i<total;i++)
+        {
+            if(mid[i].x==mid[i+1].x&&mid[i].y==mid[i+1].y)
+                sum++;
+            else
+            {
+                ans+=sum*(sum-1)/2;
+                sum=1;
+            }
+        }
+        printf("Case %d: %d\n",ii,ans);
+    }
+    return 0;
+}

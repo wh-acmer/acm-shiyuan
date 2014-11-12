@@ -1,0 +1,27 @@
+//  这个题考查精度？
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#define eps 1e-4
+using namespace std;
+int main()
+{
+    int T,t;
+    scanf("%d",&T);
+    double d,u,v;
+    for(t=1;t<=T;t++)
+    {
+        scanf("%lf%lf%lf",&d,&v,&u);
+        printf("Case %d: ",t);
+        if(u-v<=eps||u<=eps||v<=eps)
+            printf("can't determine\n");
+        else
+        {
+            double s1=d/u;
+            double s2=d/sqrt(u*u-v*v);
+            printf("%.3lf\n",s2-s1);
+        }
+    }
+    return 0;
+}

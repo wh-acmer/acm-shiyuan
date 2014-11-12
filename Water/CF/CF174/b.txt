@@ -1,0 +1,33 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <cmath>
+using namespace std;
+char s[200010];
+int main()
+{
+    int t;
+    scanf("%d%*c",&t);
+    int n_a=0,n_i=0,n_f=0;
+    for(int i=1;i<=t;i++)
+    {
+        scanf("%c",&s[i]);
+        if(s[i]=='I')
+            n_i++;
+        else if(s[i]=='F')
+            n_f++;
+        else
+            n_a++;
+    }
+    if(n_i==1)
+        printf("1\n");
+    else if(n_i==0)
+    {
+            printf("%d\n",n_a);
+    }
+    else
+        printf("0\n");
+    return 0;
+
+}

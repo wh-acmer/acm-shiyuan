@@ -1,0 +1,56 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <cmath>
+#define PI (2*acos(0.0))
+using namespace std;
+struct point
+{
+    double x,y;
+};
+double Distance(point a,point b)
+{
+    return sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+}
+double triangle(double a,double b,double c)
+{
+    double p=(a+b+c)/2;
+    return sqrt(p*(p-a)*(p-b)*(p-c));
+}
+double jiao(double a,double b,double c)
+{
+    return acos((a*a+b*b-c*c)/(2*a*b));
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        point p1,p2;
+        double r1,r2;
+        scanf("%lf%lf%lf%lf%lf%lf",&p1.x,&p1.y,&r1,&p2.x,&p2.y,&r2);
+        double d=Distance(p1,p2);
+        double ans;
+        if(d<=fabs(r1-r2))// 等于号掉了会WA呃
+        {
+            double r=r1<r2?r1:r2;
+            ans=r*r*PI;
+        }
+        else if(d>=r1+r2)
+        {
+            ans=0;
+        }
+        else
+        {
+            double a0=jiao(r1,r2,d);
+            double a1=jiao(r1,d,r2);
+            double a2=jiao(r2,d,r1);
+            ans=r1*r1*a1;
+            ans+=r2*r2*a2;
+            ans-=sin(a0)*r1*r2;
+        }
+        printf("Case %d: %.8lf\n",i,ans);
+    }
+    return 0;
+}

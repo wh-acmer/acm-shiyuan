@@ -1,0 +1,23 @@
+// 之前看那个位运算的时候发现了这篇博客
+// http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=bitManipulation
+// 用了下 __builtin_popcount() 感觉还可以
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        int n;
+        scanf("%d",&n);
+        printf("Case %d: ",i);
+        if(__builtin_popcount(n)&1)
+            printf("odd\n");
+        else
+            printf("even\n");
+    }
+    return 0;
+}

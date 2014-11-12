@@ -1,0 +1,45 @@
+// 组合计数
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <map>
+#include <cstring>
+#include <cmath>
+using namespace std;
+map<unsigned long long,int>m;
+unsigned long long fac(int n)
+{
+    unsigned long long ans=1;
+    for(int i=1;i<=n;i++)
+        ans*=i;
+    return ans;
+}
+int main()
+{
+    int n;
+    while(scanf("%d",&n),n!=0)
+    {
+        m.clear();
+        unsigned long long num;
+        unsigned long long sum=0;
+        unsigned long long ans=1;
+        for(int i=1;i<=n;i++)
+        {
+            scanf("%llu",&num);
+            sum+=num;
+            m[num]++;
+        }
+        for(int i=1;i<=n;i++)
+            ans*=10;
+        ans--;
+        ans/=9;
+        unsigned long long tmp=fac(n-1);
+        tmp*=sum;
+        map<unsigned long long ,int>::iterator it;
+        for(it=m.begin();it!=m.end();it++)
+            tmp/=fac(it->second);
+        tmp*=ans;
+        printf("%llu\n",tmp);
+    }
+    return 0;
+}

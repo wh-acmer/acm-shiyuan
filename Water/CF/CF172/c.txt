@@ -1,0 +1,47 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+#define PI acos(-1.0)
+double h,w,l;
+double r;
+void solve()
+{
+    scanf("%lf%lf%lf",&w,&h,&l);
+    if(w<h)
+        swap(w,h);
+    if(l>=90)
+        l=180-l;
+    if(l==90)
+    {
+        printf("%.8lf\n",h*h*1.0);
+        return ;
+    }
+    if(l==0)
+    {
+        printf("%.8lf\n",w*h*1.0);
+        return ;
+    }
+    r=l*PI/180.0;
+    if(r<2*atan(h*1.0/w))
+    {//产生四个三角形
+        double b=w/2.0-h/2.0*tan(r/2);
+        double a=h/2.0-w/2.0*tan(r/2);
+        double ans=w*h*1.0;
+        //printf("%lf................\n",ans);开始用int溢出了
+        ans-=a*a*tan(r)+b*b*tan(r);
+        printf("%.8lf\n",ans);
+    }
+    else
+    {//产生两个梯形
+        double ans=w*h*1.0;
+        double cnt=h*(w*1.0-h/sin(r));
+        ans-=cnt;
+        printf("%.8lf\n",ans);
+    }
+}
+int main()
+{
+    solve();
+}

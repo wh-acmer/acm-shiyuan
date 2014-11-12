@@ -1,0 +1,59 @@
+// game
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+int a[3];
+char s[1001];
+int main()
+{
+    int T;
+    scanf("%d",&T);
+    for(int t=1;t<=T;t++)
+    {
+        scanf("%s",s);
+        memset(a,0,sizeof(a));
+        int l=strlen(s);
+        int sum=0;
+        for(int i=0;i<l;i++)
+        {
+            sum+=(s[i]-'0');
+            a[(s[i]-'0')%3]++;
+        }
+        int tag=1;
+        /// S--first
+        if(sum%3==0)
+        {/// 3321  3312  333  33
+            if(a[0]%2==0) // 3的倍数存在偶数个
+                tag=0;// 先手输
+            else
+                tag=1;
+        }
+        else if(sum%3==1)
+        {
+            if(a[1]) //除去全部是3的剩下的存在余1的 331
+                if(a[0]%2) // 这种情况下，前面偶数个3不看，最后剩下（3n+1）个1和一个三，拿走一个1，先手输
+                    tag=0;
+                else
+                    tag=1;
+            else // 3322 这种也是先手输
+                tag=0;
+        }
+        else if(sum%3==2)// 除去全是3的剩下的存在  3n+1+1 或者 3n+2
+        {
+            if(a[2]) //  3n+2
+                if(a[0]%2)// 去掉偶数个3后，留下一个2和3，先手输
+                    tag=0;
+                else ;
+            else // 3n+1+1的情况， 11
+                tag=0;
+        }
+        printf("Case %d: ",t);
+        if(tag)
+            printf("S\n");
+        else
+            printf("T\n");
+    }
+    return 0;
+}

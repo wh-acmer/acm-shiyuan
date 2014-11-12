@@ -1,0 +1,73 @@
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+using namespace std;
+#define maxn 11
+#define mod 9973
+struct Matrix
+{
+    int m[maxn][maxn];
+}E;
+int n,k;
+void init()
+{
+    for(int i=1;i<maxn;i++)
+        for(int j=1;j<maxn;j++)
+            E.m[i][j]=((i==j)?1:0);
+}
+Matrix multi(Matrix A,Matrix B)
+{
+    Matrix ans;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+        {
+            ans.m[i][j]=0;
+            for(int k=1;k<=n;k++)
+                ans.m[i][j]=(ans.m[i][j]+A.m[i][k]*B.m[k][j])%mod;
+        }
+    return ans;
+}
+Matrix Pow(Matrix A,int b)
+{
+    Matrix ans=E;
+    while(b)
+    {
+        if(b&1)
+        {
+            b--;
+            ans=multi(ans,A);
+        }
+        else
+        {
+            b/=2;
+            A=multi(A,A);
+        }
+    }
+    return ans;
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    init();
+    Matrix A;
+    while(t--)
+    {
+        scanf("%d%d",&n,&k);
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+                scanf("%d",&A.m[i][j]);
+        A=Pow(A,k);
+        int ans=0;
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+            {
+                if(i==j)
+                    ans=(ans+A.m[i][j])%mod;
+            }
+        printf("%d\n",ans);
+    }
+    return 0;
+}

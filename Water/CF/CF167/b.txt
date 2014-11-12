@@ -1,0 +1,30 @@
+// 找规律
+// 把二进制里1个数相等的枚举出来
+// 然后求C(k,2)累加起来
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+using namespace std;
+// __builtin_popcount()
+int cnt[32];
+int main()
+{
+    int a,n;
+    long long ans=0;
+    cin>>n;
+    memset(cnt,0,sizeof(cnt));
+    for(int i=1;i<=n;i++)
+    {
+        cin>>a;
+        cnt[__builtin_popcount(a)]++;
+    }
+    for(int i=1;i<=31;i++)
+    {
+        if(cnt[i])
+            ans+=(long long)cnt[i]*(cnt[i]-1)/2;
+    }
+    printf("%I64d\n",ans);
+    return 0;
+}

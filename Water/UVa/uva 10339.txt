@@ -1,0 +1,26 @@
+#include <cstdio>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+int main()
+{
+    long long a,b;
+    while(scanf("%lld%lld",&a,&b)!=EOF)
+    {
+        if(a==b)
+        {
+            printf("%lld %lld ",a,b);
+            printf("12:00\n");
+            continue;
+        }
+        long long cnt=(86400-a)*43200;
+        long long tmp=60*fabs(a-b+0.0);
+        long long ans=cnt/tmp;
+        if((cnt%tmp)*2>=tmp)
+            ans++;
+        printf("%lld %lld ",a,b);
+        printf("%02lld:%02lld\n",((ans/60)%12==0)?(ans/60%12+12):(ans/60%12),ans%60);
+    }
+    return 0;
+}

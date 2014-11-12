@@ -1,0 +1,44 @@
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+#include <cmath>
+using namespace std;
+int josephus(int n,int m)
+{
+    if(n==2)
+        return (m%2)?2:1;
+    int v=(m+josephus(n-1,m))%n;
+    if(v==0)
+        v=n;
+    return v;
+}
+int solve(int n,int m)
+{
+    if(m==1)
+        return n;
+    if(n==1)
+        return 1;
+    if(m>=n)
+        return josephus(n,m);
+    int l=(n/m)*m;
+    int j=josephus((n-(n/m)),m);
+    if(j<=n-1)
+        return l+j;
+    j-=n-1;
+    int t=(j/(m-1))*m;
+    if((j%(m-1))==0)
+        return t-1;
+    return t+(j%(m-1));
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        int m,n;
+        scanf("%d%d",&n,&m);
+        printf("Case %d: %d\n",i,solve(n,m));
+    }
+    return 0;
+}

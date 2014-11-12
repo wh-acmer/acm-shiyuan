@@ -1,0 +1,23 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+using namespace std;
+long long gcd(long long a,long long b)
+{
+    if(b==0)
+        return a;
+    return gcd(b,a%b);
+}
+long long lcm(long long a,long long b)
+{
+    return a/gcd(a,b)*b;
+}
+int main()
+{
+    long long a,b;
+    while(cin>>a>>b)
+        cout<<lcm(a,b)<<endl;
+    return 0;
+}

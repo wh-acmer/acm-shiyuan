@@ -1,0 +1,18 @@
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+#include <cstdlib>
+using namespace std;
+#define PI (2*acos(0.0))
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        double n;
+        scanf("%lf",&n);
+        printf("Case %d: %.2lf\n",i,4*n*n-n*n*PI);
+    }
+    return 0;
+}

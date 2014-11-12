@@ -1,0 +1,103 @@
+// http://lbv-pc.blogspot.com/2012/07/aladdin-and-optimal-invitation.html
+
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+#include <map>
+#include <cmath>
+using namespace std;
+map<int,int>mx,my;
+int dx,dy;
+int m,n,q;
+void solve()
+{
+    mx.clear();
+    my.clear();
+    scanf("%d%d%d",&m,&n,&q);
+    __int64 total=0;//5w*1w可能会超
+    for(int n_a=1;n_a<=q;n_a++)
+    {
+        int ii,jj,kk;
+        scanf("%d%d%d",&ii,&jj,&kk);
+        total+=kk;
+        mx[ii]+=kk;
+        my[jj]+=kk;
+    }
+    __int64 tmp=0;
+    map<int,int>::iterator it=mx.begin();
+    for(;it!=mx.end();it++)
+    {
+        dx=it->first;
+        tmp+=it->second;
+        if(tmp>=(total+1)/2)
+            break;
+    }
+    tmp=0;
+    it=my.begin();
+    for(;it!=my.end();it++)
+    {
+        dy=it->first;
+        tmp+=it->second;
+        if(tmp>=(total+1)/2)
+            break;
+    }
+}
+int main()
+{
+    int Cases;
+    scanf("%d",&Cases);
+    for(int cases=1;cases<=Cases;cases++)
+    {
+        solve();
+        printf("Case %d: %d %d\n",cases,dx,dy);
+    }
+    return 0;
+}
+
+
+/* 胖子的代码
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+__int64 x[50050],y[50050];
+int main()
+{
+    int m,n,w,a,b;
+    __int64 po;
+    int i,j,k,t,p;
+    cin>>t;
+    for (i=1;i<=t;i++)
+    {
+        memset(x,0,sizeof(x));
+        memset(y,0,sizeof(y));
+        cin>>m>>n>>w;
+        po=0;
+        while (w--)
+        {
+            cin>>a>>b>>p;
+            x[a]+=p;
+            y[b]+=p;
+            po+=p;
+        }
+        __int64 sum=0;
+        j=0;
+        while (sum<(po+1)/2)
+        {
+            j++;
+            sum+=x[j];
+        }
+        cout<<"Case "<<i<<": "<<j<<" ";
+        sum=0;
+        j=0;
+        while (sum<(po+1)/2)
+        {
+            j++;
+            sum+=y[j];
+        }
+        cout<<j<<endl;
+    }
+}
+*/

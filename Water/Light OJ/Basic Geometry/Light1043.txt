@@ -1,0 +1,14 @@
+#include <cstdio>
+#include <cmath>
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        double a,b,c,ratio;
+        scanf("%lf%lf%lf%lf",&a,&b,&c,&ratio);
+        printf("Case %d: %lf\n",i,a/sqrt((ratio+1)/ratio));
+    }
+    return 0;
+}

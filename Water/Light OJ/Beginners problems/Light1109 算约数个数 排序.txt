@@ -1,0 +1,66 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+#define maxn 1001
+struct S
+{
+    int a,b;
+};
+S s[maxn];
+int prime[maxn];
+void Prime()
+{
+    memset(prime,1,sizeof(prime));
+    prime[0]=prime[1]=0;
+    for(int i=2;i*i<=maxn;i++)
+        if(prime[i])
+            for(int j=2*i;j<=maxn;j+=i)
+                prime[j]=0;
+}
+int tmp[maxn];
+bool cmp(S x,S y)
+{
+    if(x.a<y.a)
+        return true;
+    if(x.a==y.a)
+        return x.b>y.b;
+    return false;
+}
+int main()
+{
+    Prime();
+    for(int i=1;i<=maxn;i++)
+        tmp[i]=1;
+    for(int i=1;i<=maxn;i++)
+    {
+        for(int j=2;j<=i;j++)
+            if(prime[j]&&i%j==0)
+            {
+                int cnt=1;
+                int ii=i;
+                while(ii%j==0)
+                {
+                    ii/=j;
+                    cnt++;
+                }
+                tmp[i]*=cnt;
+            }
+    }
+    for(int i=1;i<maxn;i++)
+    {
+        s[i].a=tmp[i];
+        s[i].b=i;
+    }
+    sort(s+1,s+maxn,cmp);
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        int n;
+        scanf("%d",&n);
+        printf("Case %d: %d\n",i,s[n].b);
+    }
+    return 0;
+}

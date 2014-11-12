@@ -1,0 +1,29 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+char s[10];
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        int ans=0,num;
+        int n;
+        printf("Case %d:\n",i);
+        scanf("%d",&n);
+        while(n--)
+        {
+            scanf("%s",s);
+            if(s[0]=='d')
+            {
+                scanf("%d",&num);
+                ans+=num;
+            }
+            else
+                printf("%d\n",ans);
+        }
+    }
+    return 0;
+}

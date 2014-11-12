@@ -1,0 +1,25 @@
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        long long n;
+        cin>>n;
+        long long ans=0;
+        long long cnt=5;
+        while(cnt<=n)
+        {
+            ans+=n/cnt;
+            cnt*=5;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}

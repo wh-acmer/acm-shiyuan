@@ -1,0 +1,40 @@
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+int a[40],b[40];
+int main()
+{
+    int n,sum;
+    scanf("%d%d",&n,&sum);
+    int n_a=0,n_b=0;
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d%d",&a[i],&b[i]);
+        n_a+=a[i];
+        n_b+=b[i];
+    }
+    if(sum<=n_b&&sum>=n_a)
+    {
+        printf("YES\n");
+        for(int i=1;i<=n;i++)
+        {
+            if(sum==n_a)
+                break;
+            int temp=min(b[i]-a[i],sum-n_a);
+            n_a+=temp;
+            a[i]+=temp;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            if(i==n)
+                printf("%d\n",a[i]);
+            else
+                printf("%d ",a[i]);
+        }
+    }
+    else
+        printf("NO\n");
+    return 0;
+
+}

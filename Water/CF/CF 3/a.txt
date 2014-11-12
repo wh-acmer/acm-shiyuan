@@ -1,0 +1,89 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+using namespace std;
+#define  min(a,b)  (a<b?a:b)
+#define  abs(a)  (a>0?a:(-a))
+int main()
+{
+    char str1[10],str2[10];
+    gets(str1);
+    gets(str2);
+    int a0=str2[0]-'a';
+    int a1=str1[0]-'a';
+    int b0=str2[1]-'0';
+    int b1=str1[1]-'0';
+    a0-=a1;
+    b0-=b1;
+    int ans;
+    ans=max(abs(a0),abs(b0));
+    printf("%d\n",ans);
+    for(int i=1;i<=ans;i++)
+    {
+        if(a0!=0&&b0!=0)
+        {
+            if(a0>0&&b0<0)
+            {
+                printf("RD\n");
+                a0--;
+                b0++;
+            }
+            else if(a0>0&&b0>0)
+            {
+                printf("RU\n");
+                a0--;
+                b0--;
+            }
+            else if(a0<0&&b0<0)
+            {
+                printf("LD\n");
+                a0++;
+                b0++;
+            }
+            else
+            {
+                printf("LU\n");
+                a0++;
+                b0--;
+            }
+        }
+        else if(a0==0&&b0==0)
+        {
+            break;
+        }
+        else
+        {
+            if(a0==0)
+            {
+                if(b0>0)
+                {
+                    printf("U\n");
+                    b0--;
+                }
+                else if(b0<0)
+                {
+                    printf("D\n");
+                    b0++;
+                }
+                else
+                    break;
+            }
+            else if(b0==0)
+            {
+                if(a0>0)
+                {
+                    printf("R\n");
+                    a0--;
+                }
+                else if(a0<0)
+                {
+                    printf("L\n");
+                    a0++;
+                }
+                else
+                    break;
+            }
+        }
+    }
+    return 0;
+}

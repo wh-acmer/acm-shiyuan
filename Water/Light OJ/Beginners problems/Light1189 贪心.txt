@@ -1,0 +1,56 @@
+// 先打表看了一下，18的阶乘就是一个18位数
+// 所以就算是枚举也不算难
+// 但是这个题可以贪心直接做，因为前n-1项的和肯定是小于第n项的
+#include <cstdio>
+#include <iostream>
+#include <stack>
+using namespace std;
+long long fac(long long n)
+{
+    if(n==1||n==0)
+        return 1;
+    return n*fac(n-1);
+}
+long long f[20];
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        long long n;
+        scanf("%lld",&n);
+        printf("Case %d: ",i);
+        stack<int>s;
+        while(!s.empty())
+            s.pop();
+        int cnt=20;
+        int tag=0;
+        while(n)
+        {
+            if(cnt<0)
+            {
+                tag=1;
+                break;
+            }
+            if(n>=fac(cnt))
+            {
+                n-=fac(cnt);
+                s.push(cnt);
+            }
+            cnt--;
+        }
+        if(tag)
+            printf("impossible\n");
+        else
+        {
+            while(s.size()!=1)
+            {
+                printf("%d!+",s.top());
+                s.pop();
+            }
+            printf("%d!\n",s.top());
+        }
+    }
+    return 0;
+}

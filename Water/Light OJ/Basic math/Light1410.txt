@@ -1,0 +1,41 @@
+#include <cstdio>
+#include <algorithm>
+#include <map>
+#include <vector>
+#include <iostream>
+using namespace std;
+struct point
+{
+    int x,y;
+};
+point p[1010];
+vector<__int64>v;
+int n,cases;
+__int64 dis(point a,point b)
+{
+    return (a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y);
+}
+void solve()
+{
+    v.clear();
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d%d",&p[i].x,&p[i].y);
+        for(int j=0;j<i;j++)
+            v.push_back(dis(p[i],p[j]));
+    }
+    sort(v.begin(),v.end());
+    vector<__int64>::iterator it=unique(v.begin(),v.end());
+    printf("Case %d: %d\n",cases,it-v.begin()+1);
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(cases=1;cases<=t;cases++)
+    {
+        solve();
+    }
+    return 0;
+}

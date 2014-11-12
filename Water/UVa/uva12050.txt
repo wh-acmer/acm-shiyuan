@@ -1,0 +1,104 @@
+// 第n大回文数
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+//http://mathworld.wolfram.com/PalindromicNumber.html
+// 根据这个性质，求得第n个回文数的digit
+long long Pow(int n)
+{///算10^n的大小
+    long long ans=1;
+    long long ten=10;
+    while(n)
+    {
+        if(n&1)
+        {
+            n--;
+            ans*=ten;
+        }
+        else
+        {
+            n/=2;
+            ten*=ten;
+        }
+    }
+    return ans;
+}
+long long sum(int n)
+{//求10^n内回文数的个数
+    long long ans=1;
+    if(n&1)
+    {
+        ans*=11;
+        ans*=Pow((n-1)/2);
+        ans-=2;
+    }
+    else
+    {
+        ans=Pow(n/2);
+        ans--;
+        ans*=2;
+    }
+    return ans;
+}
+int main()
+{
+    int n;
+    while(scanf("%d",&n)!=EOF,n)
+    {
+        int cnt=1;
+        while(sum(cnt)<n)
+            cnt++;
+        n-=sum(cnt-1);
+        //printf("%d  == %d\n",cnt,n);
+        // 得到该数量级的第n个数
+        if(cnt&1)//奇数位个数字
+        {
+            // 分成 (cnt-1)/2,1,(cnt-1)/2三部分
+            long long tmp=(cnt-1)/2;
+            if(tmp==0)
+            {
+                printf("%d\n",n);
+                continue;
+            }
+            else
+            {
+                tmp=9*Pow(tmp-1);//首位非0,其余位均有10种可能
+                //printf("左边位数tmp=%d\n",tmp);
+                int pp=(n-1)/10;
+                if((cnt-1)/2-1>=0)
+                    pp+=Pow((cnt-1)/2-1);
+                //printf("pp=%d\n",pp);
+                n=(n%10);
+                if(n==0)
+                    n+=10;
+                int mid=(n-1)%(10);//得到中间数字
+                //printf("mid=%d\n",mid);
+                printf("%d%d",pp,mid);
+                while(pp)
+                {
+                    printf("%d",pp%10);
+                    pp/=10;
+                }
+                printf("\n");
+            }
+        }
+        else //偶数位个数字
+        {
+            //分成 cnt/2 和 cnt/2 位
+            int tmp=cnt/2;
+            //printf("tmp=%d\n",tmp);
+            int pp=Pow(tmp-1);
+            pp+=n-1;
+            printf("%d",pp);
+            while(pp)
+            {
+                printf("%d",pp%10);
+                pp/=10;
+            }
+            printf("\n");
+        }
+    }
+    return 0;
+}

@@ -1,0 +1,95 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+long long mod;
+struct Matrix
+{
+    long long m[3][3];
+};
+Matrix D,E;
+void init()
+{
+    for(int i=1;i<=2;i++)
+        for(int j=1;j<=2;j++)
+        {
+            E.m[i][j]=(i==j);
+            D.m[i][j]=1;
+        }
+    D.m[2][2]=0;
+}
+Matrix Multi(Matrix A,Matrix B)
+{
+    Matrix ans;
+    for(int i=1;i<=2;i++)
+        for(int j=1;j<=2;j++)
+        {
+            ans.m[i][j]=0;
+            for(int k=1;k<=2;k++)
+                ans.m[i][j]=(ans.m[i][j]+A.m[i][k]*B.m[k][j])%mod;
+        }
+    return ans;
+}
+Matrix Add(Matrix A,Matrix B)
+{
+    Matrix ans;
+    for(int i=1;i<=2;i++)
+        for(int j=1;j<=2;j++)
+            ans.m[i][j]=(A.m[i][j]+B.m[i][j])%mod;
+    return ans;
+}
+Matrix Pow(Matrix A,int k)
+{
+    Matrix ans=E;
+    while(k)
+    {
+        if(k&1)
+        {
+            k--;
+            ans=Multi(ans,A);
+        }
+        else
+        {
+            k/=2;
+            A=Multi(A,A);
+        }
+    }
+    return ans;
+}
+Matrix Sum(Matrix A,int n)
+{
+    Matrix ans;
+    if(n==0)
+    {
+        for(int i=1;i<=2;i++)
+            for(int j=1;j<=2;j++)
+                ans.m[i][j]=0;
+        return ans;
+    }
+    else if(n==1)
+        return A;
+    ///a^1+a^2+a^3+a^4+a^5 = (a^1+a^2)*(1+a^2)+a^5
+    ///a^1+a^2+a^3+a^4 = (a^1+a^2)*(1+a^2)
+    ans=Sum(A,n/2);
+    Matrix res=Add(E,Pow(A,n/2));
+    res=Multi(ans,res);
+    if(n&1)
+        res=Add(res,Pow(A,n));
+    return res;
+}
+int main()
+{
+    long long k,b,n;
+    init();
+    while(scanf("%lld%lld%lld%lld",&k,&b,&n,&mod)!=EOF)
+    {
+        Matrix res=Pow(D,b);
+        Matrix tmp=Pow(D,k);
+        Matrix ans=Add(E,Sum(tmp,n-1));
+        ans=Multi(ans,res);
+        printf("%lld\n",ans.m[1][2]);
+    }
+    return 0;
+}

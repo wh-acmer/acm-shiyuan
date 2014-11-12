@@ -1,0 +1,84 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+const long long mod=10000007;
+using namespace std;
+struct Matrix
+{
+    long long m[7][7];//之前用的int,WA了，然后__int64 PE 了
+};
+Matrix E,B;
+int a[7];
+void Init()
+{
+    for(int i=1;i<=6;i++)
+    for(int j=1;j<=6;j++)
+    {
+        E.m[i][j]=(i==j);
+        B.m[i][j]=0;
+    }
+    for(int i=1;i<=6;i++)
+        B.m[i][1]=1;
+    for(int i=1;i<=5;i++)
+        B.m[i][i+1]=1;
+}
+Matrix Multi(Matrix A,Matrix B,int M,int N,int K)
+{
+    Matrix ans;
+    for(int i=1;i<=M;i++)
+        for(int j=1;j<=N;j++)
+        {
+            ans.m[i][j]=0;
+            for(int k=1;k<=K;k++)
+            {
+                ans.m[i][j]=(ans.m[i][j]+((A.m[i][k]%mod)*(B.m[k][j])%mod))%mod;
+            }  // 我去，WA了三次，就感觉这里有问题，尼玛，改成longlong就过了，__int64会PE
+        }
+    return ans;
+}
+Matrix Pow(Matrix A,int k)
+{
+    Matrix ans=E;
+    while(k)
+    {
+        if(k&1)
+        {
+            k--;
+            ans=Multi(ans,A,6,6,6);
+        }
+        else
+        {
+            k/=2;
+            A=Multi(A,A,6,6,6);
+        }
+    }
+    return ans;
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    Init();
+    for(int ii=1;ii<=t;ii++)
+    {
+        int n;
+        Matrix D;
+        for(int i=1;i<=6;i++)
+        {
+            scanf("%d",&a[i]);
+            D.m[1][7-i]=a[i];
+        }
+        scanf("%d",&n);
+        printf("Case %d: ",ii);
+        if(n<6)
+            printf("%d\n",a[n+1]%mod);
+        else
+        {
+            n-=5;
+            Matrix ans=Multi(D,Pow(B,n),1,6,6);
+            printf("%lld\n",ans.m[1][1]%mod);
+        }
+    }
+    return 0;
+}

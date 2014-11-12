@@ -1,0 +1,43 @@
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int x,y,n;
+int xx,yy;
+double ans=210000.0;
+void solve(int p)
+{
+    int num=floor(x*1.0*p/y);
+    int xnum=num-1;
+    int ynum=num+1;
+    if(fabs(num*1.0/p-x*1.0/y)<ans)
+    {
+        ans=fabs(num*1.0/p-x*1.0/y);
+        xx=num;
+        yy=p;
+    }
+    if(fabs(xnum*1.0/p-x*1.0/y)<ans)
+    {
+        ans=fabs(xnum*1.0/p-x*1.0/y);
+        xx=xnum;
+        yy=p;
+    }
+    if(fabs(ynum*1.0/p-x*1.0/y)<ans)
+    {
+        ans=fabs(ynum*1.0/p-x*1.0/y);
+        xx=ynum;
+        yy=p;
+    }
+}
+int main()
+{
+    scanf("%d%d%d",&x,&y,&n);
+    for(int i=1;i<=n;i++)
+    {
+        solve(i);
+    }
+    printf("%d/%d\n",xx,yy);
+    return 0;
+}

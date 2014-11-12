@@ -1,0 +1,118 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <cmath>
+using namespace std;
+string s[4];
+int tag=0;
+int is_ok()
+{
+    for(int i=1;i<=3;i++)
+        if(s[i][1]==s[i][2]&&s[i][2]==s[i][0])
+        {
+            if(s[i][1]=='0')
+            {
+                tag+=3;
+            }
+            if(s[i][1]=='X')
+            {
+                tag+=1;
+            }
+        }
+    for(int i=0;i<=2;i++)
+        if(s[1][i]==s[2][i]&&s[1][i]==s[3][i])
+        {
+            if(s[1][i]=='X')
+            {
+                tag+=1;
+            }
+            if(s[1][i]=='0')
+            {
+                tag+=3;
+            }
+        }
+    if(s[1][0]==s[2][1]&&s[2][1]==s[3][2])
+    {
+        if(s[1][0]=='0')
+        {
+            tag+=3;
+        }
+        if(s[1][0]=='X')
+        {
+            tag+=1;
+        }
+    }
+    if(s[1][2]==s[2][1]&&s[2][1]==s[3][0])
+    {
+        if(s[1][2]=='0')
+        {
+            tag+=3;
+        }
+        if(s[1][2]=='X')
+        {
+            tag+=1;
+        }
+    }
+    return tag;
+}
+int main()
+{
+    for(int i=1;i<=3;i++)
+        cin>>s[i];
+    int n_x=0,n_0=0,n_dot=0;
+    for(int i=1;i<=3;i++)
+        for(int j=0;j<=2;j++)
+        {
+            if(s[i][j]=='X')
+                n_x++;
+            if(s[i][j]=='0')
+                n_0++;
+            if(s[i][j]=='.')
+                n_dot++;
+        }
+    //printf("%d %d %d\n",n_x,n_0,n_dot);
+    if(n_x>=6||n_0>=6||fabs(n_x-n_0)>=2||(n_x<n_0))
+    {
+        printf("illegal\n");
+        return 0;
+    }
+    if(is_ok())
+    {
+        if(tag>=4)
+            printf("illegal\n");
+        if(tag==1)
+        {
+            if(n_x>n_0)
+                printf("the first player won\n");
+            else
+                printf("illegal\n");
+        }
+        if(tag==2)
+        {
+            if(n_x>n_0)
+                printf("the first player won\n");
+            else
+                printf("illegal\n");
+        }
+        if(tag==3)
+        {
+            if(n_x>n_0)
+                printf("illegal\n");
+            else
+                printf("the second player won\n");
+        }
+        return 0;
+    }
+    //printf("....%d\n",tag);
+    if(n_0+n_x==9)
+    {
+        printf("draw\n");
+        return 0;
+    }
+    if(n_0==n_x)
+        printf("first\n");
+    if(n_0<n_x)
+        printf("second\n");
+    return 0;
+}

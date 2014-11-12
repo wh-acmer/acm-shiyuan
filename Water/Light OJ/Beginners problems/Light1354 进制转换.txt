@@ -1,0 +1,55 @@
+#include <cstdio>
+#include <stack>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int a[5];
+char b[5][8];
+int fun(stack<int>s)
+{
+    int ans=0;
+    int dd=1;
+    while(s.size())
+    {
+        ans+=dd*s.top();
+        s.pop();
+        dd*=2;
+    }
+    return ans;
+}
+int main()
+{
+    int t;
+    int tmp;
+    scanf("%d",&t);
+    for(int ii=1;ii<=t;ii++)
+    {
+        stack<int>s[5];
+        scanf("%d.%d.%d.%d",&a[1],&a[2],&a[3],&a[4]);
+        for(int i=1;i<=4;i++)
+        {
+            for(int j=1;j<=8;j++)
+            {
+                scanf("%1d",&tmp);
+                s[i].push(tmp);
+            }
+            if(i!=4)
+            scanf("%*c");
+        }
+        int tag=1;
+        for(int i=1;i<=4;i++)
+        {
+            if(fun(s[i])!=a[i])
+            {
+                tag=0;
+                break;
+            }
+        }
+        printf("Case %d: ",ii);
+        if(tag)
+            printf("Yes\n");
+        else
+            printf("No\n");
+    }
+    return 0;
+}

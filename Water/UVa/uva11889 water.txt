@@ -1,0 +1,47 @@
+// water
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int gcd(int a,int b)
+{
+    if(b==0)
+        return a;
+    return gcd(b,a%b);
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int a,b,c;
+        scanf("%d%d",&a,&c);
+        if(c%a!=0)
+        {
+            printf("NO SOLUTION\n");
+            continue;
+        }
+        int cnt=c/a;
+        int tag=1;
+        b=cnt;
+        while(gcd(a,b)*cnt!=b)
+        {
+            b+=cnt;
+            if(b>c)
+            {
+                tag=0;
+                break;
+            }
+        }
+        if(tag==0)
+        {
+            printf("NO SOLUTION\n");
+            continue;
+        }
+        else
+            printf("%d\n",b);
+    }
+    return 0;
+}

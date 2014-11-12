@@ -1,0 +1,23 @@
+/*
+ 求10^n内素数的个数的位数
+  = log(10)(num(n))+1
+    num(n) = n/ln(n)
+    num(10^n) = 10^n/(n*ln(10))
+  = lg(10^n) - lg(n) - lg(ln(10)) + 1
+  = n+1 -lg(n) - lb(ln(10))
+*/
+#include <cstdio>
+#include <algorithm>
+#include <cstring>
+#include <cmath>
+#include <iostream>
+using namespace std;
+int main()
+{
+    long long n;
+    while(cin>>n)
+    {
+        cout<<int(n+1-log10(n)-log10(log(10)))<<endl;
+    }
+    return 0;
+}

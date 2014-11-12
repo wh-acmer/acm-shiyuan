@@ -1,0 +1,46 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <map>
+#include <cmath>
+using namespace std;
+int main()
+{
+    char s[5][5];
+    memset(s,0,sizeof(s));
+    for(int i=1;i<=4;i++)
+        scanf("%s",s[i]);
+    int tag=0;
+    for(int i=1;i<=4;i++)
+        for(int j=4;j>=1;j--)
+            s[i][j]=s[i][j-1];
+    for(int i=1;i<=4;i++)
+        s[i][0]='a';
+    for(int i=1;i<=4;i++)
+    {
+        for(int j=1;j<=4;j++)
+        {
+            if(s[i][j]==s[i-1][j]&&((s[i][j-1]==s[i][j])||(s[i][j+1]==s[i][j])))
+            {
+                tag=1;
+                //printf("%c %c %c %c\n",s[i][j],s[i-1][j],s[i][j-1],s[i][j+1]);
+            }
+            if(s[i][j]==s[i+1][j]&&((s[i][j-1]==s[i][j])||(s[i][j+1]==s[i][j])))
+            {
+                tag=1;
+                //printf("%c %c %c %c\n",s[i][j],s[i+1][j],s[i][j-1],s[i][j+1]);
+            }
+            if(tag)
+                break;
+
+        }
+        if(tag)
+            break;
+    }
+    if(tag)
+        printf("YES\n");
+    else
+        printf("NO\n");
+    return 0;
+}

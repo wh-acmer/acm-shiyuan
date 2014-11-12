@@ -1,0 +1,29 @@
+// 将EF连起来，区域d划分为x和y
+// 由比例关系知
+// a/b=x/c
+// (a+x+y)/(b+c)=y/(x+c)
+// 最终求d=x+y的值
+// b=x的时候A点就不存在了
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <iostream>
+#define eps 10-9
+using namespace std;
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        double a,b,c,x,y;
+        scanf("%lf%lf%lf",&a,&b,&c);
+        x=a*c/b;
+        y=(a+x)*(c+x)/(b-x);
+        if(b-x<=eps)
+            printf("Case %d: -1\n",i);
+        else
+            printf("Case %d: %lf\n",i,x+y);
+    }
+    return 0;
+}

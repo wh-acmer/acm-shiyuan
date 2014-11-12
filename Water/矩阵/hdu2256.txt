@@ -1,0 +1,74 @@
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+using namespace std;
+#define mod 1024
+struct Matrix
+{
+    int m[3][3];
+};
+Matrix E,B,D;
+void init()
+{
+    for(int i=1;i<=2;i++)
+        for(int j=1;j<=2;j++)
+            E.m[i][j]=(i==j);
+    B.m[1][1]=5;
+    B.m[1][2]=12;
+    B.m[2][1]=2;
+    B.m[2][2]=5;
+    D.m[1][1]=5;
+    D.m[2][1]=2;
+}
+Matrix Multi(Matrix A,Matrix B,int M,int N,int K)
+{
+    Matrix ans;
+    for(int i=1;i<=M;i++)
+        for(int j=1;j<=K;j++)
+        {
+            ans.m[i][j]=0;
+            for(int k=1;k<=N;k++)
+                ans.m[i][j]=(ans.m[i][j]+A.m[i][k]*B.m[k][j])%mod;
+        }
+    return ans;
+}
+Matrix Pow(Matrix A,int e)
+{
+    Matrix ans=E;
+    while(e)
+    {
+        if(e&1)
+        {
+            e--;
+            ans=Multi(ans,A,2,2,2);
+        }
+        else
+        {
+            e/=2;
+            A=Multi(A,A,2,2,2);
+        }
+    }
+    return ans;
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    init();
+    while(t--)
+    {
+        int n;
+        scanf("%d",&n);
+        if(n==0)
+        {
+            printf("1\n");
+            continue;
+        }
+        Matrix ans=Pow(B,n-1);
+        ans=Multi(ans,D,2,2,1);
+        printf("%d\n",(ans.m[1][1]*2-1)%mod);
+    }
+    return 0;
+}

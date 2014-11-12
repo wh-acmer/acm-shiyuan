@@ -1,0 +1,29 @@
+// 看不懂题目的水题 = =
+// 
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+using namespace std;
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int a,aa=0;
+    int ans=0;
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d",&a);
+        ans+=a;
+    }
+    for(int i=1;i<=5;i++)
+    {
+        if((ans+i)%(n+1)!=1)
+        {
+            aa++;
+        }
+    }
+    printf("%d\n",aa);
+    return 0;
+}

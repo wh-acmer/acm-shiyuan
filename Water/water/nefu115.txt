@@ -1,0 +1,110 @@
+/*#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+using namespace std;
+int main()
+{
+    long long n;
+    while(scanf("%lld",&n)!=EOF)
+    {
+        if(n%12==0)
+            cout<<"YES\n";
+        else if(n%6==0)
+            cout<<4<<endl;
+        else if(n%4==0)
+            cout<<3<<endl;
+        else
+            cout<<"NO\n";
+    }
+    return 0;
+}
+*/
+
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+using namespace std;
+#define mod 12
+struct Matrix
+{
+    int m[3][3];
+}E,D;
+void init()
+{
+    for(int i=1;i<=2;i++)
+        for(int j=1;j<=2;j++)
+        {
+            E.m[i][j]=(i==j);
+            D.m[i][j]=1;
+        }
+    D.m[2][2]=0;
+}
+Matrix multi(Matrix A,Matrix B)
+{
+    Matrix ans;
+    for(int i=1;i<=2;i++)
+        for(int j=1;j<=2;j++)
+        {
+            ans.m[i][j]=0;
+            for(int k=1;k<=2;k++)
+                ans.m[i][j]=(ans.m[i][j]+A.m[i][k]*B.m[k][j])%mod;
+        }
+    return ans;
+}
+Matrix Pow(Matrix A,long long k)
+{
+    Matrix ans=E;
+    while(k)
+    {
+        if(k&1)
+        {
+            k--;
+            ans=multi(A,ans);
+        }
+        else
+        {
+            k/=2;
+            A=multi(A,A);
+        }
+    }
+    return ans;
+}
+void Print(Matrix A)
+{
+    for(int i=1;i<=2;i++)
+    {
+        for(int j=1;j<=2;j++)
+            cout<<A.m[i][j]<<" ";
+        cout<<endl;
+    }
+}
+int main()
+{
+    long long n;
+    init();
+    while(scanf("%lld",&n)!=EOF)
+    {
+        Matrix ans=Pow(D,n);
+        if(ans.m[1][2]%12==0)
+            cout<<"YES\n";
+        else if(ans.m[1][2]%3==0)
+            cout<<3<<endl;
+        else if(ans.m[1][2]%4==0)
+            cout<<4<<endl;
+        else
+            cout<<"NO\n";
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+

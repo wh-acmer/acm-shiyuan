@@ -1,0 +1,31 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <map>
+using namespace std;
+map<int,int>m;
+int main()
+{
+    int t,a;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        int n;
+        scanf("%d",&n);
+        m.clear();
+        for(int j=1;j<=n;j++)
+        {
+            scanf("%d",&a);
+            m[a]++;
+        }
+        map<int,int>::iterator it;
+        int ans=0;
+        for(it=m.begin();it!=m.end();it++)
+        {
+            ans+=(it->first+it->second)/(it->first+1)*(it->first+1);
+        }
+        printf("Case %d: %d\n",i,ans);
+    }
+    return 0;
+}

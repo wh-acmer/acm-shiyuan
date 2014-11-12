@@ -1,0 +1,28 @@
+#include <cstdio>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#define long __int64
+using namespace std;
+int main()
+{
+    long n,k;
+    scanf("%I64d%I64d",&n,&k);
+    long ans=(k*k-k+2)/2;
+    if(ans<n)
+        printf("-1\n");
+    else
+    {
+        long sum=1;
+        long cnt=k-1;
+        ans=0;
+        while(sum<n)
+        {
+            sum+=cnt;
+            cnt--;
+            ans++;
+        }
+        printf("%I64d\n",ans);
+    }
+    return 0;
+}

@@ -1,0 +1,52 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main()
+{
+    int t,num;
+    cin>>t;
+    for(int ii=1;ii<=t;ii++)
+    {
+        cout<<"Case "<<ii<<": ";
+        int n,m,k,p;
+        cin>>n>>m>>k;
+        vector<int>v1(m+1);
+        vector<vector<int> >v2(n+1);
+        for(int i=1;i<=n;i++)
+        {
+            v2[i].push_back(0);
+            for(int j=1;j<=k;j++)
+            {
+                cin>>num;
+                v2[i].push_back(num);
+            }
+        }
+        cin>>p;
+        for(int i=1;i<=p;i++)
+        {
+            cin>>num;
+            v1[num]=1;
+        }
+        bool tag=0;
+        for(int i=1;i<=n;i++)
+        {
+            int cnt=0;
+            for(int j=1;j<=k;j++){
+                if(v2[i][j]<0&&!v1[-v2[i][j]])
+                    cnt++;
+                if(v2[i][j]>0&&v1[v2[i][j]])
+                    cnt++;
+            }
+            if(cnt==0)
+                tag=1;
+        }
+        if(!tag)
+            cout<<"Yes\n";
+        else
+            cout<<"No\n";
+    }
+    return 0;
+}

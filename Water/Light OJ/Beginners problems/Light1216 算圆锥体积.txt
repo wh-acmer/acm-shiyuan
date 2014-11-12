@@ -1,0 +1,24 @@
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <algorithm>
+#include <iostream>
+#define PI (2*acos(0.0))
+using namespace std;
+int main()
+{
+    int cases;
+    cin>>cases;
+    for(int ii=1;ii<=cases;ii++)
+    {
+        double r1,r2,p,h;
+        cin>>r1>>r2>>h>>p;
+        cout<<"Case "<<ii<<": ";
+        double ans,x,v;
+        x=h*r2/(r1-r2);
+        ans=(r1-r2)/h*(p+x);
+        v=1.0/3*PI*ans*ans*(p+x)-1.0/3*PI*r2*r2*x;
+        printf("%.8lf\n",v);
+    }
+    return 0;
+}

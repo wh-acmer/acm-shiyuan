@@ -1,0 +1,41 @@
+// 博弈 每次和对手拿的石子和为3
+// 对3取余之外的再讨论
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int cases=1;cases<=t;cases++)
+    {
+        string s;
+        int n;
+        scanf("%d",&n);
+        cin>>s;
+        int tag;
+        if(s=="Alice")
+            tag=1;
+        else
+            tag=0;
+        printf("Case %d: ",cases);
+        if(tag) // last lose  Alice first
+        {
+            n--;
+            if(n%3==0)
+                printf("Bob\n");
+            else
+                printf("Alice\n");
+        }
+        else // last win Bob first
+        {
+            if(n%3==0)
+                printf("Alice\n");
+            else
+                printf("Bob\n");
+        }
+    }
+    return 0;
+}

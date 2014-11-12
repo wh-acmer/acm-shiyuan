@@ -1,0 +1,149 @@
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <map>
+using namespace std;
+#define maxn 45000
+int vis[maxn];
+map<int,int>m;
+void Prime()
+{
+    m.clear();
+    memset(vis,1,sizeof(vis));
+    vis[0]=vis[1]=0;
+    for(int i=2;i*i<maxn;i++)
+        if(vis[i])
+        {
+            m[i]++;
+            for(int j=2*i;j<maxn;j+=i)
+                vis[j]=0;
+        }
+}
+bool is_prime(long long n)
+{
+    if(n<maxn)
+        return vis[n];
+    if(n%2==0)
+        return 0;
+    map<int,int>::iterator it =m.begin();
+    for(;it!=m.end();it++)
+        if(n%it->first==0)
+            return false;
+    return true;
+}
+int main()
+{
+    Prime();
+    long long n;
+    while(cin>>n)
+    {
+        if(is_prime(n))
+            printf("YES\n");
+        else
+            printf("NO\n");
+    }
+    return 0;
+}
+
+
+
+
+
+
+/*
+
+
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+#include <cstdlib>
+using namespace std;
+#define Times 10
+long long random(long long n)
+{
+    return ((double)rand()/RAND_MAX*n+0.5);
+}
+long long multi(long long a,long long b,long long m)
+{
+    long long ans=0;
+    while(b)
+    {
+        if(b&1)
+        {
+            b--;
+            ans=(ans+a)%m;
+        }
+        else
+        {
+            b/=2;
+            a=(2*a)%m;
+        }
+    }
+    return ans;
+}
+long long Pow(long long a,long long b,long long m)
+{
+    long long ans=1;
+    while(b)
+    {
+        if(b&1)
+        {
+            b--;
+            ans=multi(ans,a,m);
+        }
+        else
+        {
+            b/=2;
+            a=multi(a,a,m);
+        }
+    }
+    return ans;
+}
+bool witness(long long a,long long n)
+{
+    long long d=n-1;
+    while(!(d&1))
+        d>>=1;
+    long long t=Pow(a,d,n);
+    while(d!=n-1 && t!=1 && t!=n-1)
+    {
+        t=multi(t,t,n);
+        d<<=1;
+    }
+    return t==n-1 || d&1 ;
+}
+bool miller_rabin(long long n)
+{
+    if(n==2)
+        return true;
+    if(n<2||!(n&1))
+        return false;
+    for(int i=1;i<=Times;i++)
+    {
+        long long a=random(n-2)+1;
+        if(!witness(a,n))
+            return false;
+    }
+    return true;
+}
+int main()
+{
+    long long n;
+    while(cin>>n)
+    {
+        if(miller_rabin(n))
+            cout<<"YES\n";
+        else
+            cout<<"NO\n";
+    }
+    return 0;
+}
+
+
+
+
+*/

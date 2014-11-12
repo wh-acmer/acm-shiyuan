@@ -1,0 +1,41 @@
+// 我去。。套了模板样例最后一个还是过不了
+//  算了 还是看大神的做法
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <vector>
+using namespace std;
+bool is_ok(vector<long long>a,int b)
+{
+    for(int i=a.size()-1;i>=0;i--)
+    {
+        long long cnt=(a[i]%b)*10;
+        if(cnt!=0&&i==0)
+            return false;
+        if(i!=0)
+            a[i-1]+=cnt;
+    }
+    return true;
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int ii=1;ii<=t;ii++)
+    {
+        vector<long long>a;
+        string aa;
+        int b;
+        cin>>aa;
+        cin>>b;
+        printf("Case %d: ",ii);
+        for(int i=aa.size()-1;i>=0;i--)
+            if(aa[i]!='-')
+                a.push_back(aa[i]-'0');
+        if(is_ok(a,b))
+            printf("divisible\n");
+        else
+            printf("not divisible\n");
+    }
+    return 0;
+}

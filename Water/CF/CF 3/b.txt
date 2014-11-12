@@ -1,0 +1,114 @@
+//之前打算用特殊排序，先把type全为2的先取，然后再多退少补
+//若总type为奇数，即舍去一个2换一个1,然后第三组数据发现不行
+//当两个1的某个值很大，大到和起来远远超过一个type为2的...问题出来了
+//换另外一种思路，还是WA
+//然后 还是这样老老实实的分析...
+
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <cmath>
+#include <queue>
+using namespace std;
+struct bag
+{
+    int type;
+    int capacity;
+    int id;
+};
+int vis[100001];
+bag b[100001];
+bool cmp(bag x,bag y)
+{
+    return x.capacity*1.0/x.type>y.capacity*1.0/y.type;
+}
+int main()
+{
+    memset(vis,0,sizeof(vis));
+    int n,v;
+    scanf("%d%d",&n,&v);
+    for(int i=1;i<=n;i++)
+    {
+        b[i].id=i;
+        scanf("%d %d",&b[i].type,&b[i].capacity);
+    }
+    sort(b+1,b+n+1,cmp);
+    int sum=0,ans=0;
+    int mx=-1,mi=-1,mx_id,mi_id;
+    int cnt=0;
+    for(int i=1;i<=n;i++)
+    {
+        int tag=1;
+        vis[b[i].id]=1;
+        sum+=b[i].type;
+        ans+=b[i].capacity;
+        if(sum>v)
+        {
+            tag=0;
+            vis[b[i].id]=0;
+            sum-=b[i].type;
+            ans-=b[i].capacity;
+            if(cnt==0)
+            {
+                if(b[i].type==2)
+                {
+                    cnt=1;
+                    mx=b[i].capacity;
+                    mx_id=b[i].id;
+                }
+            }
+        }
+        if(tag)
+        {
+            if(b[i].type==1)
+            {
+                mi=b[i].capacity;
+                mi_id=b[i].id;
+            }
+        }
+    }
+    if(sum==v||mi==-1||mx==-1)
+    {
+        printf("%d\n",ans);
+        int total=-1;
+        for(int i=1;i<=n;i++)
+        {
+            if(vis[i])
+                total++;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            if(vis[i])
+            {
+                if(total--)
+                    printf("%d ",i);
+                else
+                    printf("%d\n",i);
+            }
+        }
+    }
+    else
+    {
+        printf("%d\n",ans-mi+mx);
+        vis[mi_id]=0;
+        vis[mx_id]=1;
+        int total=-1;
+        for(int i=0;i<=n;i++)
+        {
+            if(vis[i])
+                total++;
+        }
+        for(int i=0;i<=n;i++)
+        {
+            if(vis[i])
+            {
+                if(total--)
+                    printf("%d ",i);
+                else
+                    printf("%d\n",i);
+            }
+        }
+    }
+    return 0;
+}

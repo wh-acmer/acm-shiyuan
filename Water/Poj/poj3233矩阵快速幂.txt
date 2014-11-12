@@ -1,0 +1,84 @@
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+#include <cstring>
+using namespace std;
+struct Matrix
+{
+    int m[33][33];
+};
+int n,num,mod;
+Matrix E,B;
+void Init()
+{
+    for(int i=1;i<=33;i++)
+        for(int j=1;j<=33;j++)
+            E.m[i][j]=(i==j);
+}
+Matrix Multi(Matrix A,Matrix B,int M=n,int N=n,int K=n)
+{
+    Matrix ans=E;
+    for(int i=1;i<=M;i++)
+        for(int j=1;j<=K;j++)
+        {
+            ans.m[i][j]=0;
+            for(int k=1;k<=N;k++)
+                ans.m[i][j]=(ans.m[i][j]+A.m[i][k]*B.m[k][j])%mod;
+        }
+    return ans;
+}
+Matrix Pow(Matrix A,int d)
+{
+    Matrix ans=E;
+    while(d)
+    {
+        if(d&1)
+        {
+            d--;
+            ans=Multi(ans,A,n,n,n);
+        }
+        else
+        {
+            d/=2;
+            A=Multi(A,A);
+        }
+    }
+    return ans;
+}
+Matrix Add(Matrix A,Matrix B)
+{
+    Matrix ans;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+            ans.m[i][j]=(A.m[i][j]+B.m[i][j])%mod;
+    return ans;
+}
+Matrix Sum(Matrix A,int e)
+{
+    if(e==1)
+        return A;
+    Matrix tmp=E;
+    tmp=Add(tmp,Pow(A,e/2));
+    tmp=Multi(tmp,Sum(A,e/2));
+    if(e&1)
+        tmp=Add(tmp,Pow(A,e));
+    return tmp;
+}
+int main()
+{
+    Init();
+    scanf("%d%d%d",&n,&num,&mod);
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+            scanf("%d",&B.m[i][j]);
+    Matrix ans=Sum(B,num);
+    for(int i=1;i<=n;i++)
+    {
+        printf("%d",ans.m[i][1]);
+        for(int j=2;j<=n;j++)
+            printf(" %d",ans.m[i][j]);
+        printf("\n");
+    }
+    return 0;
+
+}

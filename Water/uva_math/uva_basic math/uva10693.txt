@@ -1,0 +1,16 @@
+// water
+#include <cstdio>
+#include <cmath>
+#include <iostream>
+using namespace std;
+int main()
+{
+    double l,f;
+    while(scanf("%lf%lf",&l,&f)!=EOF,l!=0,f!=0)
+    {
+        double v=sqrt(2.0*l*f);
+        printf("%.8lf ",v);
+        printf("%.8lf\n",v*3600/(2*l));
+    }
+    return 0;
+}

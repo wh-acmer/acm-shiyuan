@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    getchar();
+    for(int ii=1;ii<=t;ii++)
+    {
+        int a[26];
+        int tag=1;
+        memset(a,0,sizeof(a));
+        char c;
+        while(scanf("%c",&c),c!='\n')
+        {
+            if(c==' ') continue;
+            if(c>='A'&&c<='Z') a[c-'A']++;
+            if(c>='a'&&c<='z') a[c-'a']++;
+        }
+        while(scanf("%c",&c),c!='\n')
+        {
+            if(c==' '||tag==0) continue;
+            if(c>='A'&&c<='Z')
+            {
+                if(a[c-'A']!=0)
+                    a[c-'A']--;
+                else
+                    tag=0;
+            }
+            else if(c>='a'&&c<='z')
+            {
+                if(a[c-'a']!=0)
+                    a[c-'a']--;
+                else
+                    tag=0;
+            }
+        }
+        cout<<"Case "<<ii<<": ";
+        if(tag)
+            cout<<"Yes\n";
+        else
+            cout<<"No\n";
+    }
+    return 0;
+}

@@ -1,0 +1,57 @@
+#include <cstring>
+#include <cmath>
+#include <algorithm>
+#include <cstdio>
+#include <iostream>
+using namespace std;
+struct LPoint
+{
+    double x,y;
+};
+struct Ldir//表示方向向量
+{
+    double dx,dy;
+};
+struct Line
+{
+    LPoint p;
+    Ldir dir;
+};
+void format(Line l,double &A,double &B,double &C)
+{
+    A=l.dir.dy;
+    B=-l.dir.dx;
+    C=l.p.y*l.dir.dx-l.p.x*l.dir.dy;
+}
+double p2ldis(LPoint a,Line l)
+{
+    double A,B,C;
+    format(l,A,B,C);
+    return (fabs(A*a.x+B*a.y+C)/sqrt(A*A+B*B));
+}
+double Distance(LPoint a,LPoint b)
+{
+    return sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int ii=1;ii<=t;ii++)
+    {
+        LPoint po[4];
+        for(int i=1;i<=3;i++)
+            scanf("%lf%lf",&po[i].x,&po[i].y);
+        po[0].x=po[1].x+po[3].x-po[2].x;
+        po[0].y=po[1].y+po[3].y-po[2].y;
+        double ans=Distance(po[1],po[2]);
+        Line l;
+        l.p=po[1];
+        l.dir.dx=po[2].x-po[1].x;
+        l.dir.dy=po[2].y-po[1].y;
+        ans*=p2ldis(po[0],l);
+        printf("Case %d: ",ii);
+        printf("%.lf %.lf %.lf\n",po[0].x,po[0].y,ans);
+    }
+    return 0;
+}

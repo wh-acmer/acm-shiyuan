@@ -1,0 +1,67 @@
+// 参考别人写的uva5815
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int total;
+int x[501],y[501],z[501];
+void solve() //预处理，先把勾股数放在数组
+{
+    total=0;
+    for(int i=1;i<=500;i++)
+    for(int j=i+1;j<=500;j++)
+    {
+        int k=(int)sqrt(i*i+j*j);
+        if(i*i+j*j==k*k)
+        {
+            total++;
+            x[total]=i;
+            y[total]=j;
+            z[total]=k;
+        }
+    }
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    solve();
+    for(int cases=1;cases<=t;cases++)
+    {
+        int H,W;
+        scanf("%d%d",&H,&W);
+        printf("Case %d: ",cases);
+        long long sum=0,tmp;
+        int mx=max(H,W);
+        for(int i=2;i<mx;i+=2)//垂直或水平相切
+            for(int j=i;i+j<=mx;j+=2)
+            {
+                int length=i+j;
+                int broad=max(i,j);
+                tmp=0;
+                if(broad<=H&&length<=W)
+                    tmp+=(H+1-broad)*(W+1-length);
+                if(broad<=W&&length<=H)
+                    tmp+=(W+1-broad)*(H+1-length);
+                if(i!=j)
+                    tmp*=2;
+                sum+=tmp;
+            }
+        for(int i=1;i<=total;i++)//两圆斜切
+            for(int j=1;j<z[i];j++)
+            {
+                tmp=0;
+                int length=max(z[i]+x[i],2*max(j,z[i]-j));
+                int broad=max(z[i]+y[i],2*max(j,z[i]-j));
+                if(length<=H&&broad<=W)
+                    tmp+=(H+1-length)*(W+1-broad);
+                if(broad<=H&&length<=W)
+                    tmp+=(H+1-broad)*(W+1-length);
+                tmp*=2;
+                sum+=tmp;
+            }
+        printf("%lld\n",sum);
+    }
+    return 0;
+}

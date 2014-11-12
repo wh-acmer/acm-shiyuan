@@ -1,0 +1,166 @@
+//根据题图提示，每次碰撞之后可以看做是两球或多球互相交换
+//实质上最终球的坐标与交换过程无关，仅考虑1000个球各自与桌壁的碰撞即可
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int l,w,n,tt;
+struct dir
+{
+    int x,y;
+};
+dir d[8];
+struct Ball
+{
+    dir dd;
+    int x,y;
+};
+Ball ball[1001];
+void init_direction()
+{
+    d[0].x=1,d[0].y=0;
+    d[1].x=1,d[1].y=1;
+    d[2].x=0,d[2].y=1;
+    d[3].x=-1,d[3].y=1;
+    d[4].x=-1,d[4].y=0;
+    d[5].x=-1,d[5].y=-1;
+    d[6].x=0,d[6].y=-1;
+    d[7].x=1,d[7].y=-1;
+}
+void bounce(Ball &bb)
+{
+    int dx,dy;
+    dx=tt%(2*l);
+    dy=tt%(2*w);
+    if(bb.dd.x==1&&bb.dd.y==1)// NE
+    {
+        if(dx<l-bb.x)
+            bb.x+=dx;
+        else if(dx<2*l-bb.x)
+        {
+            bb.x+=dx;
+            bb.x=2*l-bb.x;
+        }
+        else
+            bb.x=dx-(2*l-bb.x);
+        if(dy<w-bb.y)
+            bb.y+=dy;
+        else if(dy<2*w-bb.y)
+        {
+            bb.y+=dy;
+            bb.y=2*w-bb.y;
+        }
+        else
+            bb.y=dy-(2*w-bb.y);
+    }
+    else if(bb.dd.x==1&&bb.dd.y==-1) // SE
+    {
+        if(dx<l-bb.x)
+            bb.x+=dx;
+        else if(dx<2*l-bb.x)
+        {
+            bb.x+=dx;
+            bb.x=2*l-bb.x;
+        }
+        else
+            bb.x=dx-(2*l-bb.x);
+        if(dy<w+bb.y)
+        {
+            bb.y-=dy;
+            if(bb.y<0)
+                bb.y=bb.y*(-1);
+        }
+        else
+            bb.y=w-(dy-(bb.y+w));
+    }
+    else if(bb.dd.x==-1&&bb.dd.y==1)// NW
+    {
+        if(dx<bb.x)
+            bb.x-=dx;
+        else if(dx<bb.x+l)
+        {
+            bb.x-=dx;
+            bb.x*=(-1);
+        }
+        else
+        {
+            dx-=(bb.x+l);
+            bb.x=l-dx;
+        }
+        if(dy<w-bb.y)
+            bb.y+=dy;
+        else if(dy<2*w-bb.y)
+        {
+            bb.y+=dy;
+            bb.y=2*w-bb.y;
+        }
+        else
+            bb.y=dy-(2*w-bb.y);
+    }
+    else if(bb.dd.x==-1&&bb.dd.y==-1)
+    {
+        if(bb.x>dx)
+            bb.x-=dx;
+        else if(dx<bb.x+l)
+        {
+            bb.x-=dx;
+            bb.x*=(-1);
+        }
+        else
+        {
+            dx-=(bb.x+l);
+            bb.x=l-dx;
+        }
+        if(dy<w+bb.y)
+        {
+            bb.y-=dy;
+            if(bb.y<0)
+                bb.y=bb.y*(-1);
+        }
+        else
+            bb.y=w-(dy-(bb.y+w));
+    }
+}
+bool cmp(Ball a,Ball b)
+{
+    if(a.x==b.x)
+        return a.y<b.y;
+    return a.x<b.x;
+}
+void solve()
+{
+    scanf("%d%d%d%d",&l,&w,&n,&tt);
+    string str;
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d%d",&ball[i].x,&ball[i].y);
+        cin>>str;
+        if(str=="NW")
+            ball[i].dd=d[3];
+        else if(str=="NE")
+            ball[i].dd=d[1];
+        else if(str=="SE")
+            ball[i].dd=d[7];
+        else if(str=="SW")
+            ball[i].dd=d[5];
+        bounce(ball[i]);
+    }
+}
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    init_direction();
+    for(int i=1;i<=t;i++)
+    {
+        solve();
+        printf("Case %d:\n",i);
+        sort(ball+1,ball+n+1,cmp);
+        for(int ii=1;ii<=n;ii++)
+        {
+            printf("%d %d\n",ball[ii].x,ball[ii].y);
+        }
+    }
+    return 0;
+}

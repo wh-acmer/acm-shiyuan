@@ -1,0 +1,22 @@
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+long long a[4];
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++)
+    {
+        for(int j=1;j<=3;j++)
+            scanf("%lld",&a[j]);
+        sort(a+1,a+4);
+        printf("Case %d: ",i);
+        if(a[1]*a[1]+a[2]*a[2]==a[3]*a[3])
+            printf("yes\n");
+        else
+            printf("no\n");
+    }
+    return 0;
+}

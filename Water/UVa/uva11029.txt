@@ -1,0 +1,44 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int Pow(int a,int b)
+{
+    int ans=1;
+    while(b)
+    {
+        if(b&1)
+        {
+            b--;
+            ans=(ans*a)%1000;
+        }
+        else
+        {
+            b/=2;
+            a=(a*a)%1000;
+        }
+    }
+    return ans%1000;
+}
+int main()
+{
+    int t;
+    while(scanf("%d",&t)!=EOF)
+    {
+        while(t--)
+        {
+            long long n,k;
+            scanf("%lld%lld",&n,&k);
+            int di=n%1000;
+            di=Pow(di,k);
+            //printf("%d\n",di);
+            double gao=k*log(n+0.0)/log(10.0);
+            gao=gao-ceil(gao);
+            gao=pow(10.0,gao);
+            gao*=1000;
+            printf("%03d...%03d\n",(int)gao,di);
+        }// 呃 ，WA了好多次，原来是低位的前置0掉了
+    }
+    return 0;
+}
